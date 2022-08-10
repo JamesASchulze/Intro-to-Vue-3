@@ -1,4 +1,10 @@
 app.component('product-display', {
+    props: {
+        premium: {
+            type: Boolean,
+            required: true
+        }
+    },
     template:
     /*html*/
     `<div class="product-display">
@@ -12,15 +18,13 @@ app.component('product-display', {
             <div class="product-info">
                 <h1>{{ product.title }}</h1>
                 <p>{{ product.description }}</p>
-                <p>
-                Made up of:
-                <ul>
-                    <li v-for="detail in product.details">{{ detail }}</li>
-                </ul>
-                </p>
-                <p v-if="inStock > 0">In Stock</p>
-                <p v-else>Out of Stock</p>
-                <p v-if="product.onSale && inStock">{{ onSaleNote }}</p>
+                <product-details :details="details"></product-details>
+                <p>Shipping: {{ shipping }}</p>
+                <div v-if="inStock > 0">
+                    <p>In Stock</p>
+                    <p v-if="product.onSale && inStock">{{ onSaleNote }}</p>
+                </div>
+                <div v-else><p>Out of Stock</p></div>
                 <p>
                 Sizes:
                 <ul>
@@ -64,7 +68,7 @@ app.component('product-display', {
                 description: 'Super duper, nice socks!',
                 brand: 'James\'',
                 url: 'https://github.com/JamesASchulze/Intro-to-Vue-3/blob/master/assets/images/socks_green.jpg',
-                // onSale: true,
+                onSale: true,
                 details: ['50% cotton','30% wool','20% polyester'],
                 variants: [
                     { 
@@ -114,7 +118,13 @@ app.component('product-display', {
         onSaleNote() {
             const brand = this.product.brand;
             const { product } = this.product.variants[this.selectedVariant];
-            return `${brand} ${product} is on sale!`
+            return `${brand} ${product} on sale!`
+        },
+        shipping() {
+            if (this.premium) {
+                return 'Free'
+            }
+            return 2.99;
         }
     }
 })
