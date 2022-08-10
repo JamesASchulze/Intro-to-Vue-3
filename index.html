@@ -13,66 +13,15 @@
       <div class="nav-bar">
         <div class="cart">Cart({{ cart }})</div>
       </div>
-      <div class="product-display">
-        <div class="product-container">
-          <div class="product-image">
-            <a :href="product.url">
-              <img :src="image"
-                  :class="{ 'out-of-stock-img': !inStock }">
-            </a>
-          </div>
-          <div class="product-info">
-            <h1>{{ product.title }}</h1>
-            <p>{{ product.description }}</p>
-            <p>
-              Made up of:
-              <ul>
-                <li v-for="detail in product.details">{{ detail }}</li>
-              </ul>
-            </p>
-            <p v-if="inStock > 0">In Stock</p>
-            <p v-else>Out of Stock</p>
-            <p v-if="product.onSale && inStock">{{ onSaleNote }}</p>
-            <p>
-              Sizes:
-              <ul>
-                <li v-for="size in product.sizes">{{ size }}</li>
-              </ul>
-            </p>
-            <div class="color-parent">
-              <span>Available In:</span>
-              <div 
-                v-for="(variant, index) in product.variants" 
-                :key="variant.id"
-                @mouseover="updateVariant(index)"
-                class="color-circle"
-                :style="{ backgroundColor: variant.color }"
-              >
-                  <!-- {{ variant.color }} -->
-              </div>
-            </div>
-            <div 
-              class="button"
-              :class="{ disabledButton: !inStock }"
-              :disabled="!inStock"
-              @click="addToCart"
-            >
-              Add to Cart
-            </div>
-            <div 
-              class="button"
-              :class="{ disabledButton: cart === 0 }"
-              @click="removeFromCart"
-            >
-              Remove One From Cart
-            </div>
-          </div>
-        </div>
-      </div>
+      <product-display :premium="premium"></product-display>
     </div>
-
+    
     <!-- Import Js -->
     <script src="./main.js"></script>
+
+    <!-- Import Components -->
+    <script src="./components/productDisplay.js"></script>
+    <script src="./components/productDetails.js"></script>
 
     <!-- Mount App -->
     <script>
