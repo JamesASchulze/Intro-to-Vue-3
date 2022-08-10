@@ -18,7 +18,7 @@ app.component('product-display', {
             <div class="product-info">
                 <h1>{{ product.title }}</h1>
                 <p>{{ product.description }}</p>
-                <product-details :details="details"></product-details>
+                <product-details :details="product.details"></product-details>
                 <p>Shipping: {{ shipping }}</p>
                 <div v-if="inStock > 0">
                     <p>In Stock</p>
