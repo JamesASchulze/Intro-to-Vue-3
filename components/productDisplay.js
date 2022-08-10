@@ -97,7 +97,7 @@ app.component('product-display', {
     },
     methods: {
         addToCart() {
-            this.$emit('add-to-cart')
+            this.$emit('add-to-cart', this.product.variants[this.selectedVariant].id)
         },
         removeFromCart() {
             if(this.cart >= 1) {
