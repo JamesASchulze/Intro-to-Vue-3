@@ -56,7 +56,7 @@ app.component('product-display', {
                 :class="{ disabledButton: cart === 0 }"
                 @click="removeFromCart"
                 >
-                Remove One From Cart
+                Remove From Cart
                 </div>
             </div>
         </div>
@@ -100,9 +100,7 @@ app.component('product-display', {
             this.$emit('add-to-cart', this.product.variants[this.selectedVariant].id)
         },
         removeFromCart() {
-            if(this.cart >= 1) {
-                this.cart -= 1
-            }
+            this.$emit('remove-from-cart', this.product.variants[this.selectedVariant].id)
         },
         updateVariant(index) {
             this.selectedVariant = index
