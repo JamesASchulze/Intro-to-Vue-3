@@ -48,18 +48,16 @@ app.component('product-display', {
                 :class="{ disabledButton: !inStock }"
                 :disabled="!inStock"
                 @click="addToCart"
-                >
-                Add to Cart
-                </div>
+                >Add to Cart</div>
                 <div 
                 class="button"
                 :class="{ disabledButton: cart === 0 }"
                 @click="removeFromCart"
-                >
-                Remove From Cart
-                </div>
+                >Remove From Cart</div>
             </div>
         </div>
+        <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+        <review-form @review-submitted="addReview"></review-form>
     </div>`,
     data: function() {
         return {
@@ -92,12 +90,16 @@ app.component('product-display', {
                     'small'
                 ]
             },
-            selectedVariant: 0
+            selectedVariant: 0,
+            reviews: []
         }
     },
     methods: {
         addToCart() {
             this.$emit('add-to-cart', this.product.variants[this.selectedVariant].id)
+        },
+        addReview(review) {
+            this.reviews.push(review)
         },
         removeFromCart() {
             this.$emit('remove-from-cart', this.product.variants[this.selectedVariant].id)
